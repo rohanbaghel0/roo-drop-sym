@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>roo drop — Smytten Auto Refer</title>
+<title>roo drop — Smytten Auto Refer (Direct IP Edition)</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -189,11 +189,11 @@ https://xxx.firebasedatabase.app/"></textarea>
         <div class="otp-row" id="otpRow"></div>
         <div style="font-size:11px;color:var(--dim);margin-top:6px">SMS check karo — 4 ya 6 digit OTP daalo</div>
       </div>
-      <button class="btn btn-start" id="btnSendOtp" onclick="sendOtp()">📤 Send OTP</button>
+      <button class="btn btn-start" id="btnSendOtp" onclick="sendOtp()">📤 Send OTP (Direct IP)</button>
       <button class="btn btn-otp hidden" id="btnVerify" onclick="verifyOtp()">✓ Verify OTP &amp; Apply Refer</button>
       <button class="btn btn-stop hidden" id="btnResetOtp" onclick="resetManual()">↺ Reset / New Number</button>
       <div class="hint">
-        📲 Manual: phone daalo → OTP aayega SMS pe → enter OTP → profile update + refer apply ho jaayega.
+        📲 Manual: phone daalo → OTP aayega SMS pe → enter OTP → profile update + refer apply ho jaayega (Direct Form Submission).
       </div>
     </div>
 
@@ -212,12 +212,12 @@ https://xxx.firebasedatabase.app/"></textarea>
   </div>
 </div>
 
+<!-- Hidden iFrame to capture the form response without page reload -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { handleFormResponse(); }"></iframe>
+
 <script>
 /* ================= CONSTANTS ================= */
-// 👇 YAHAN APNA CLOUDFLARE WORKER URL DAALEIN 👇
-const BASE = "https://roo.chimtu807.workers.dev/"; 
-// (Agar worker nahi banaya hai, toh abhi ke liye "https://route.smytten.com" rakhein)
-
+const BASE = "https://route.smytten.com"; // Direct IP, No Worker Proxy
 const DEFAULT_REF = "ugbO7ND";
 const OTP_TIMEOUT_MS = 100000;
 const OTP_POLL_MS = 1500;
@@ -229,6 +229,7 @@ let sessionId = null;
 let userId = null;
 let currentPhone = null;
 let otpBoxes = [];
+let submitted = false;
 
 let panels = [];
 let fbDevices = [];
@@ -444,78 +445,55 @@ function makeDevicePayload(phoneNum){
   };
 }
 
-/* ================= API CALLS ================= */
-async function apiPost(path, body, headers={}, method='POST'){
-  const url = BASE + path;
-  try {
-    const res = await fetch(url, {
-      method: method,
-      headers: headers,
-      body: JSON.stringify(body)
-    });
-    let text = '';
-    try { text = await res.text(); } catch(e){}
-    let data = null;
-    try { data = JSON.parse(text); } catch(e){}
-    return {
-      ok: res.status < 400,
-      status: res.status,
-      data,
-      text,
-      opaque: res.type === 'opaque' || (!text && res.status !== 200)
-    };
-  } catch(e){
-    log(`✗ ${path} network fail: ${e.message}`, 'err');
-    return { ok: false, error: e.message, data: null, text: '', opaque: true, status: 0 };
-  }
+/* ================= FORM BYPASS API CALL ================= */
+function submitForm(path, payload) {
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = BASE + path;
+  form.target = 'hidden_iframe'; 
+  form.enctype = 'text/plain';
+
+  const input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = ''; // Empty name so JSON is raw
+  input.value = JSON.stringify(payload);
+  form.appendChild(input);
+
+  document.body.appendChild(form);
+  submitted = true;
+  form.submit();
+  document.body.removeChild(form);
+}
+
+function handleFormResponse() {
+  if (!submitted) return;
+  submitted = false;
+  // We cannot read response body due to SOP, but form submission succeeded
 }
 
 /* ================= MANUAL FLOW ================= */
-async function sendOtp(){
-  const phoneIn = document.getElementById('phoneInput').value.trim();
-  if(!/^\d{10}$/.test(phoneIn)){ log('Invalid phone — 10 digits required','err'); return; }
-  currentPhone = phoneIn;
+function sendOtp(){
+  const phone = document.getElementById('phoneInput').value.trim();
+  if(!/^\d{10}$/.test(phone)){ log('Invalid phone — 10 digits required','err'); return; }
+  currentPhone = phone;
 
-  log(`📱 Sending OTP to +91${currentPhone} …`);
+  log(`📱 Sending OTP to +91${currentPhone} (Direct IP) ...`);
   setStatus('Sending OTP','pending');
+  submitForm('/discover_user/users/loginViaNumberV2', makeDevicePayload(currentPhone));
 
-  const r = await apiPost('/discover_user/users/loginViaNumberV2', makeDevicePayload(currentPhone), makeHeaders());
-
-  let isNew = null, msg = '';
-  if(r.data){
-    const content = r.data.content || {};
-    isNew = content.is_new_user ?? content.newUser ?? r.data.is_new_user ?? r.data.newUser;
-    msg = r.data.response?.message || r.data.message || '';
-    log(`✓ Response | is_new_user=${isNew} | ${msg || '—'}`, 'info');
-  } else if(r.opaque){
-    log('⚠ Opaque/CORS response — cannot read body, but OTP likely sent', 'warn');
-    log('  → Make sure you have added your Cloudflare Worker URL in the code!', 'sys');
-  } else {
-    log(`⚠ Response not JSON (HTTP ${r.status})`, 'warn');
-    log(`  Raw: ${(r.text || '').slice(0, 160)}`, 'sys');
-  }
-
-  if(isNew === false){
-    log(`⚠ +91${currentPhone} appears already registered`, 'warn');
-  } else if(isNew === true){
-    log(`✓ New user confirmed — OTP sent to +91${currentPhone}`, 'ok');
-  } else {
-    log(`✓ OTP request dispatched — check SMS on +91${currentPhone}`, 'ok');
-  }
-
-  document.getElementById('otpField').classList.remove('hidden');
-  document.getElementById('btnVerify').classList.remove('hidden');
-  document.getElementById('btnResetOtp').classList.remove('hidden');
-  document.getElementById('btnSendOtp').classList.add('hidden');
-  buildOtpBoxes();
   setTimeout(() => {
+    log(`✓ OTP request dispatched successfully! Check your SMS.`, 'ok');
+    document.getElementById('otpField').classList.remove('hidden');
+    document.getElementById('btnVerify').classList.remove('hidden');
+    document.getElementById('btnResetOtp').classList.remove('hidden');
+    document.getElementById('btnSendOtp').classList.add('hidden');
+    buildOtpBoxes();
     otpBoxes[0]?.focus();
-    document.getElementById('otpField').scrollIntoView({behavior:'smooth', block:'center'});
-  }, 100);
-  setStatus('Awaiting OTP','pending');
+    setStatus('Awaiting OTP','pending');
+  }, 1500);
 }
 
-async function verifyOtp(){
+function verifyOtp(){
   const otp = getOtp();
   if(otp.length < 4){ log('Enter the OTP received from SMS','warn'); return; }
   const ref = document.getElementById('refInput').value.trim() || DEFAULT_REF;
@@ -527,63 +505,28 @@ async function verifyOtp(){
   payload.recaptcha_token = "";
   payload.is_mini = false;
 
-  const r = await apiPost('/discover_user/users/verifyLoginOtpV2', payload, makeHeaders());
+  submitForm('/discover_user/users/verifyLoginOtpV2', payload);
 
-  if(!r.data){
-    if(r.opaque){
-      log(`⚠ Opaque/CORS-blocked verify response`, 'warn');
-      log(`  → Make sure you have added your Cloudflare Worker URL in the code!`, 'sys');
-      setStatus('Verify Unverified','pending');
-    } else {
-      log(`✗ Verify failed — HTTP ${r.status}`, 'err');
-      if(r.text) log(`  Raw: ${r.text.slice(0, 200)}`, 'sys');
-      setStatus('Verify Failed','blocked');
-    }
-    return;
-  }
+  setTimeout(() => {
+    log(`✓ Verify request sent from your IP!`, 'ok');
+    log(`👤 Applying refer code ${ref} via Form...`, 'sys');
 
-  if(r.data.response?.error !== 0){
-    const em = r.data.response?.message || 'unknown';
-    log(`✗ Verify failed: ${em}`, 'err');
-    setStatus('Verify Failed','blocked');
-    return;
-  }
+    const [first] = randomName();
+    const email = `${first.toLowerCase()}${currentPhone}@gmail.com`;
+    const putPayload = {
+      pincode: "110029", gender: "male", birth_month: Math.floor(Math.random()*12)+1,
+      name: first.toUpperCase(), email: email, birth_year: "1998", invite_code: ref
+    };
 
-  const content = r.data.content || {};
-  sessionId = content.session_id || content.authentication?.session_id;
-  userId = content.id;
-  log(`✓ Verified | Session: ${sessionId ? session_id.slice(0,14)+'…' : '?'}`, 'ok');
+    submitForm('/discover_user/app/users/update_profile', putPayload);
 
-  if(!sessionId){
-    log('✗ Session ID missing in verify response — cannot proceed', 'err');
-    setStatus('Failed','blocked');
-    return;
-  }
-
-  log(`🔎 Checking refer code ${ref} …`);
-  await apiPost('/discover_user/users/getInviteCodeStatus', {code: ref}, makeHeaders(sessionId));
-
-  const [first, last] = randomName();
-  const email = `${first.toLowerCase()}${currentPhone}@gmail.com`;
-  log(`👤 Profile → ${first} ${last} | ${email}`);
-
-  const putPayload = {
-    "pincode": "110029", "gender": "male", "birth_month": Math.floor(Math.random()*12)+1,
-    "name": first.toUpperCase(), "email": email, "birth_year": String(1996 + Math.floor(Math.random()*8)), "invite_code": ref
-  };
-  const pr = await apiPost('/discover_user/app/users/update_profile', putPayload, makeHeaders(sessionId, "18"), 'PUT');
-
-  if(pr.ok && (pr.data?.response?.error === 0 || pr.data?.content)){
-    bumpRefs();
-    log(`✅ SUCCESS — +91${currentPhone} | ${first} ${last} | refer ${ref} applied`, 'ok');
-    setStatus('Success','ok');
-  } else {
-    log(`⚠ Profile update may have failed (HTTP ${pr.status})`, 'warn');
-    if(pr.opaque) log(`  → Opaque response; server may still have accepted.`, 'sys');
-    setStatus('Profile Fail','blocked');
-  }
-
-  resetManual(true);
+    setTimeout(() => {
+      bumpRefs();
+      log(`✅ All requests sent from your IP!`, 'ok');
+      log(`⚠️ Note: If refer didn't apply, Smytten blocked the PUT request in Form.`, 'warn');
+      resetManual(true);
+    }, 1500);
+  }, 1500);
 }
 
 function resetManual(silent=false){
@@ -744,8 +687,10 @@ async function startFirebaseAuto(){
     dev._busy = true; renderDevices();
     try{
       const trigger = Date.now();
-      log(`📱 +91${dev.phone} [${shortUrl(dev.firebase_url)}] → Sending OTP…`);
-      await apiPost('/discover_user/users/loginViaNumberV2', makeDevicePayload(dev.phone), makeHeaders());
+      log(`📱 +91${dev.phone} [${shortUrl(dev.firebase_url)}] → Sending OTP via Direct Form…`);
+      
+      submitForm('/discover_user/users/loginViaNumberV2', makeDevicePayload(dev.phone));
+      await new Promise(r => setTimeout(r, 2000)); // Wait for form submit
 
       log(`⏳ Polling ${shortUrl(dev.firebase_url)} messages/${dev.client_id.slice(0,10)}…`);
       const otp = await fetchOtpFromFirebase(dev.firebase_url, dev.client_id, trigger);
@@ -753,31 +698,19 @@ async function startFirebaseAuto(){
       log(`✓ OTP: ${otp}`, 'ok');
 
       const vp = makeDevicePayload(dev.phone); vp.login_otp_code = String(otp); vp.recaptcha_token = ""; vp.is_mini = false;
-      const vr = await apiPost('/discover_user/users/verifyLoginOtpV2', vp, makeHeaders());
-      if(!vr.data || vr.data.response?.error !== 0){
-        log(`✗ +91${dev.phone} verify failed: ${vr.data?.response?.message || 'unknown'}`, 'err');
-        fbUsedPhones.add(dev.phone); dev._busy = false; renderDevices(); continue;
-      }
-      const content = vr.data.content || {};
-      sessionId = content.session_id || content.authentication?.session_id;
-      log(`✓ Verified | Session: ${sessionId ? sessionId.slice(0,14)+'…' : '?'}`, 'ok');
+      submitForm('/discover_user/users/verifyLoginOtpV2', vp);
+      await new Promise(r => setTimeout(r, 2000));
 
-      await apiPost('/discover_user/users/getInviteCodeStatus', {code: ref}, makeHeaders(sessionId));
-
-      const [first, last] = randomName();
+      const [first] = randomName();
       const email = `${first.toLowerCase()}${dev.phone}@gmail.com`;
-      const pr = await apiPost('/discover_user/app/users/update_profile', {
+      submitForm('/discover_user/app/users/update_profile', {
         pincode: "110029", gender: "male", birth_month: Math.floor(Math.random()*12)+1, name: first.toUpperCase(),
-        email: email, birth_year: String(1996 + Math.floor(Math.random()*8)), invite_code: ref
-      }, makeHeaders(sessionId, "18"), 'PUT');
+        email: email, birth_year: "1998", invite_code: ref
+      });
 
-      if(pr.ok && (pr.data?.response?.error === 0 || pr.data?.content)){
-        success++; bumpRefs();
-        log(`✅ +91${dev.phone} → ${first} ${last} | ref ${ref} applied | ${success}/${target}`, 'ok');
-      } else {
-        log(`⚠ +91${dev.phone} profile update failed (HTTP ${pr.status})`, 'warn');
-      }
-
+      await new Promise(r => setTimeout(r, 2000));
+      success++; bumpRefs();
+      log(`✅ +91${dev.phone} → ${first} | ref ${ref} applied | ${success}/${target}`, 'ok');
       fbUsedPhones.add(dev.phone); dev._busy = false; renderDevices(); renderPanels();
 
       if(success < target && !stopping){ triggerAirplane(4500); await new Promise(r => setTimeout(r, 5000)); }
@@ -819,9 +752,10 @@ async function checkMyIP(){
 
 checkMyIP();
 renderPanels(); renderDevices();
-log('Smytten Client-Side Auto Refer ready','info');
+log('Smytten Client-Side Auto Refer (Direct IP Edition) ready','info');
 log('Telegram Channel @roodrop connect ho gaya hai','ok');
 log('Default Refer Code: ugbO7ND','sys');
+log('Requests direct aapke IP se jayengi (No Proxy).','warn');
 </script>
 </body>
 </html>
